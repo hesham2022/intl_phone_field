@@ -399,10 +399,10 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       showCursor: widget.showCursor,
       onFieldSubmitted: widget.onSubmitted,
       magnifierConfiguration: widget.magnifierConfiguration,
-      decoration: widget.decoration.copyWith(
-        // prefixIcon: _buildFlagsButton(),
-        counterText: !widget.enabled ? '' : null,
-      ),
+      // decoration: widget.decoration.copyWith(
+      //   // prefixIcon: _buildFlagsButton(),
+      //   counterText: !widget.enabled ? '' : null,
+      // ),
       style: widget.style,
       onSaved: (value) {
         widget.onSaved?.call(
