@@ -22,6 +22,7 @@ class IntlPhoneField extends StatefulWidget {
     String? formattedNumber,
     String? fullNumber,
     String? isoCode,
+    Function? changeCounteryFunc,
   })? prefixBulder;
 
   /// Whether to hide the text being edited (e.g., for passwords).
@@ -419,6 +420,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 flag: 'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
                 formattedNumber: number,
                 fullNumber: '+${_selectedCountry.dialCode}$number',
+                changeCounteryFunc: _changeCountry,
                 isoCode: _selectedCountry.code)
             : _buildFlagsButton(),
         // _buildFlagsButton(),
