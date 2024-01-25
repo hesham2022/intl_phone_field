@@ -14,6 +14,16 @@ class IntlPhoneField extends StatefulWidget {
   /// The TextFormField key.
   final GlobalKey<FormFieldState>? formFieldKey;
 
+  final Widget Function({
+    required BuildContext context,
+    String? counteryCode,
+    String? dialCode,
+    String? flag,
+    String? formattedNumber,
+    String? fullNumber,
+    String? isoCode,
+  })? prefixBulder;
+
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
 
@@ -399,10 +409,20 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
       showCursor: widget.showCursor,
       onFieldSubmitted: widget.onSubmitted,
       magnifierConfiguration: widget.magnifierConfiguration,
-      // decoration: widget.decoration.copyWith(
-      //   // prefixIcon: _buildFlagsButton(),
-      //   counterText: !widget.enabled ? '' : null,
-      // ),
+      decoration: widget.decoration.copyWith(
+        prefixIcon: widget.prefixBulder != null
+            ? widget.prefixBulder!(
+                context: context,
+                counteryCode: _selectedCountry.code,
+                dialCode: _selectedCountry.dialCode,
+                flag: 'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                formattedNumber: number,
+                fullNumber: '+${_selectedCountry.dialCode}$number',
+                isoCode: _selectedCountry.code)
+            : _buildFlagsButton(),
+        // _buildFlagsButton(),
+        counterText: !widget.enabled ? '' : null,
+      ),
       style: widget.style,
       onSaved: (value) {
         widget.onSaved?.call(
