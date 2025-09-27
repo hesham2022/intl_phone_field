@@ -23,10 +23,9 @@ class IntlPhoneField extends StatefulWidget {
     String? fullNumber,
     String? isoCode,
     Function? changeCounteryFunc,
-    String? Function(String?)? originValidator,
   })? prefixBulder;
 
-  String? Function(String?)? originValidator;
+  final String? Function(String?)? originValidator;
 
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
@@ -311,6 +310,7 @@ class IntlPhoneField extends StatefulWidget {
     this.pickerDialogStyle,
     this.flagsButtonMargin = EdgeInsets.zero,
     this.magnifierConfiguration,
+    this.originValidator,
   }) : super(key: key);
 
   @override
