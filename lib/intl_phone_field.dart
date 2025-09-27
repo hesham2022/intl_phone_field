@@ -23,7 +23,10 @@ class IntlPhoneField extends StatefulWidget {
     String? fullNumber,
     String? isoCode,
     Function? changeCounteryFunc,
+    String? Function(String?)? originValidator,
   })? prefixBulder;
+
+  String? Function(String?)? originValidator;
 
   /// Whether to hide the text being edited (e.g., for passwords).
   final bool obscureText;
@@ -449,16 +452,17 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
 
         widget.onChanged?.call(phoneNumber);
       },
-      validator: (value) {
-        if (value == null || !isNumeric(value)) return validatorMessage;
-        if (!widget.disableLengthCheck) {
-          return value.length >= _selectedCountry.minLength && value.length <= _selectedCountry.maxLength
-              ? null
-              : widget.invalidNumberMessage;
-        }
+      validator: widget.originValidator ??
+          (value) {
+            if (value == null || !isNumeric(value)) return validatorMessage;
+            if (!widget.disableLengthCheck) {
+              return value.length >= _selectedCountry.minLength && value.length <= _selectedCountry.maxLength
+                  ? null
+                  : widget.invalidNumberMessage;
+            }
 
-        return validatorMessage;
-      },
+            return validatorMessage;
+          },
       maxLength: widget.disableLengthCheck ? null : _selectedCountry.maxLength,
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
